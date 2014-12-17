@@ -11,8 +11,8 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#ifndef _Adafruit_MCP23017_H_
-#define _Adafruit_MCP23017_H_
+#ifndef _Adafruit_MCP23017_Spark_H_
+#define _Adafruit_MCP23017_Spark_H_
 
 #include "application.h"
 
@@ -52,9 +52,9 @@
 #define bitWrite(number, bit, value) ( value ? bitSet(number, bit) : bitClear(number, bit) )
 
 
-class Adafruit_MCP23017 {
+class Adafruit_MCP23017_Spark {
  public:
-  Adafruit_MCP23017(uint8_t addr = 0x20, bool debug = false);
+  Adafruit_MCP23017_Spark(uint8_t addr = 0x20, bool debug = false);
   void begin(void);
   void setPinMode(char bank, uint8_t pin, uint8_t mode);
   void setPullUp(char bank, uint8_t pin, uint8_t mode);

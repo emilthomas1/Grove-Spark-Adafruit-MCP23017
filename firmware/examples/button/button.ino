@@ -1,4 +1,4 @@
-#include "Adafruit_MCP23017/Adafruit_MCP23017.h"
+#include "Adafruit_MCP23017_Spark/Adafruit_MCP23017_Spark.h"
 
 // Basic pin reading and pullup test for the MCP23017 I/O expander
 // public domain!
@@ -12,7 +12,7 @@
 
 // Input #0 is on pin 21 so connect a button or switch from there to ground
 
-Adafruit_MCP23017 mcp = Adafruit_MCP23017(0x20);  
+Adafruit_MCP23017_Spark mcp = Adafruit_MCP23017_Spark(0x20);  
 // 0x20 is the default anyway, but showing how it works
 
 void setup() {

@@ -12,7 +12,7 @@
  Extended for Grove Labs by Louis DeScioli, Dec 16 2014
  ****************************************************/
 
-#include "Adafruit_MCP23017.h"
+#include "Adafruit_MCP23017_Spark.h"
 
 /**
  * Initializes the MCP23017 with an I2C address.
@@ -22,7 +22,7 @@
  * @param addr    the I2C address of the chip. Should be 0->7, only 3 bits
  * @param debug   whether or not to print debugging statements to Serial port
  */
-Adafruit_MCP23017::Adafruit_MCP23017(uint8_t addr, bool debug) {
+Adafruit_MCP23017_Spark::Adafruit_MCP23017_Spark(uint8_t addr, bool debug) {
   i2caddr = addr;
   debugging = debug;
 }
@@ -31,7 +31,7 @@ Adafruit_MCP23017::Adafruit_MCP23017(uint8_t addr, bool debug) {
  * Join the I2C bus as a master
  * Not necessarily needed if Wire.begin() is called elsewhere
  */
-void Adafruit_MCP23017::begin(void) {
+void Adafruit_MCP23017_Spark::begin(void) {
   Wire.begin();
 }
 
@@ -41,7 +41,7 @@ void Adafruit_MCP23017::begin(void) {
  * @param pin   The GPIO pin number
  * @param mode  Either INPUT (1) or OUTPUT (0)
  */
-void Adafruit_MCP23017::setPinMode(char bank, uint8_t pin, uint8_t mode) {
+void Adafruit_MCP23017_Spark::setPinMode(char bank, uint8_t pin, uint8_t mode) {
   tolower(bank) == 'a' ? setBit(MCP23017_IODIRA, pin, mode) : setBit(MCP23017_IODIRB, pin, mode);
 }
 
@@ -51,7 +51,7 @@ void Adafruit_MCP23017::setPinMode(char bank, uint8_t pin, uint8_t mode) {
  * @param pin   The GPIO pin number, should be 0->7
  * @param mode  The state of the pinup, should be 0 or 1
  */
-void Adafruit_MCP23017::setPullUp(char bank, uint8_t pin, uint8_t mode) {
+void Adafruit_MCP23017_Spark::setPullUp(char bank, uint8_t pin, uint8_t mode) {
   tolower(bank) == 'a' ? setBit(MCP23017_GPPUA, pin, mode) : setBit(MCP23017_GPPUB, pin, mode);
 }
 
@@ -61,7 +61,7 @@ void Adafruit_MCP23017::setPullUp(char bank, uint8_t pin, uint8_t mode) {
  * @param  pin   The pin to read, 0->7
  * @return       The digital value of the pin, either 0 or 1
  */
-uint8_t Adafruit_MCP23017::readPin(char bank, uint8_t pin) {
+uint8_t Adafruit_MCP23017_Spark::readPin(char bank, uint8_t pin) {
   return bitRead(readBank(bank), pin);
 }
 
@@ -70,7 +70,7 @@ uint8_t Adafruit_MCP23017::readPin(char bank, uint8_t pin) {
  * @param  bank  The GPIO bank, either A or B. If not 'a' assumed to be 'b'
  * @return  The values of the 8 GPIO pins in the given bank, as an 8-bit int
  */
-uint8_t Adafruit_MCP23017::readBank(char bank) {
+uint8_t Adafruit_MCP23017_Spark::readBank(char bank) {
   return tolower(bank) == 'a' ? readRegister(MCP23017_GPIOA) : readRegister(MCP23017_GPIOB);
 }
 
@@ -80,7 +80,7 @@ uint8_t Adafruit_MCP23017::readBank(char bank) {
  * @return  The 16 values of the GPIO pins as an unsigned 16-bit int.
  *          8-MSB are bank B, 8-LSB are bank A
  */
-uint16_t Adafruit_MCP23017::readAll() {
+uint16_t Adafruit_MCP23017_Spark::readAll() {
   uint16_t result = 0;
   uint8_t resultA = readRegister(MCP23017_GPIOA);
   uint8_t resultB = readRegister(MCP23017_GPIOB);
@@ -96,7 +96,7 @@ uint16_t Adafruit_MCP23017::readAll() {
  * @param pin   The specific pin outputting the given value
  * @param value The digital output value for the pin, either 0 or 1
  */
-void Adafruit_MCP23017::writePin(char bank, uint8_t pin, uint8_t value) {
+void Adafruit_MCP23017_Spark::writePin(char bank, uint8_t pin, uint8_t value) {
   bank == 'a' ? setBit(MCP23017_GPIOA, pin, value) : setBit(MCP23017_GPIOB, pin, value);
 }
 
@@ -105,7 +105,7 @@ void Adafruit_MCP23017::writePin(char bank, uint8_t pin, uint8_t value) {
  * @param bank  The bank of GPIO pins. If not 'a' will be treated as 'b'
  * @param value The 8-bit value to be output
  */
-void Adafruit_MCP23017::writeBank(char bank, uint8_t value) {
+void Adafruit_MCP23017_Spark::writeBank(char bank, uint8_t value) {
   tolower(bank) == 'a' ? writeRegister(MCP23017_GPIOA, value) : writeRegister(MCP23017_GPIOB, value);
 }
 
@@ -116,7 +116,7 @@ void Adafruit_MCP23017::writeBank(char bank, uint8_t value) {
  * @param value  The 16 bit value to be written. 
  *               The 8-LSB go to bank A, 8-MSB go to bank B
  */
-void Adafruit_MCP23017::writeAll(uint16_t value) {
+void Adafruit_MCP23017_Spark::writeAll(uint16_t value) {
   uint8_t aValue = (value & 0xff);
   uint8_t bValue = (( value >> 8 ) & 0xff);
   writeRegister(MCP23017_GPIOA, aValue);
@@ -129,7 +129,7 @@ void Adafruit_MCP23017::writeAll(uint16_t value) {
  * @param openDrain  Set the INT pin to value or open drain. POR value is false
  * @param polarity   Set LOW or HIGH on interrupt. POR value is LOW
  */
-void Adafruit_MCP23017::configure(uint8_t mirroring, uint8_t openDrain, uint8_t polarity){
+void Adafruit_MCP23017_Spark::configure(uint8_t mirroring, uint8_t openDrain, uint8_t polarity){
   // configure the port A
   uint8_t ioconfValue = readRegister(MCP23017_IOCONA);
   bitWrite(ioconfValue, 6, mirroring);
@@ -154,7 +154,7 @@ void Adafruit_MCP23017::configure(uint8_t mirroring, uint8_t openDrain, uint8_t 
  * @param  addr  The address of the register on the MCP23017 to read
  * @return       The 8-bit value stored in the register
  */
-uint8_t Adafruit_MCP23017::readRegister(uint8_t addr){
+uint8_t Adafruit_MCP23017_Spark::readRegister(uint8_t addr){
   Wire.beginTransmission(i2caddr);
   Wire.write(addr);
   Wire.endTransmission();
@@ -167,7 +167,7 @@ uint8_t Adafruit_MCP23017::readRegister(uint8_t addr){
  * @param addr   The address of the register on the MCP23017 to write to
  * @param value  The 8-bit value to write
  */
-void Adafruit_MCP23017::writeRegister(uint8_t addr, uint8_t value){
+void Adafruit_MCP23017_Spark::writeRegister(uint8_t addr, uint8_t value){
   Wire.beginTransmission(i2caddr);
   Wire.write(addr);
   Wire.write(value);
@@ -180,7 +180,7 @@ void Adafruit_MCP23017::writeRegister(uint8_t addr, uint8_t value){
  * @param bit     The bit position to be set
  * @param value   The value to be set at the bit position (0 or 1)
  */
-void Adafruit_MCP23017::setBit(uint8_t regAddr, uint8_t bit, uint8_t value) {
+void Adafruit_MCP23017_Spark::setBit(uint8_t regAddr, uint8_t bit, uint8_t value) {
   uint8_t number = readRegister(regAddr);   // Read out the current value
   bitWrite(number, bit, value);           // write the value at the bit position
   writeRegister(regAddr, number);     // write the byte back to the register

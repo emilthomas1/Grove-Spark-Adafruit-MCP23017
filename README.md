@@ -15,8 +15,8 @@ The default address of the MCP23017 is `0x20`. If you call the constructor with 
 ### Default IO direction
 The Power on Reset value of the I/O direction registers is `1111 1111`, which means that both banks of GPIO pins are setup as inputs. You have to explicitly set them as outputs if you want to use them as such, with `setPinMode()`
 
-### Interrupts
-Currently there are no abstractions written for setting up interrupts, if someone wanted to contribute those I would happily take a pull request.
+## Contributing
+Currently there are no abstractions written for setting up interrupts, if someone wanted to contribute those I would happily take a pull request. The interrupt and toggle examples also need to be refactored
 
 ## Credits
 Adafruit invests time and resources providing this open source code, 
