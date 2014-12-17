@@ -1,9 +1,4 @@
-#if defined (SPARK)
 #include "Adafruit_MCP23017/Adafruit_MCP23017.h"
-#else
-#include <Wire.h>
-#include "Adafruit_MCP23017.h"
-#endif
 
 // Basic pin reading and pullup test for the MCP23017 I/O expander
 // public domain!
@@ -17,13 +12,14 @@
 
 // Input #0 is on pin 21 so connect a button or switch from there to ground
 
-Adafruit_MCP23017 mcp;
-  
-void setup() {  
-  mcp.begin();      // use default address 0
+Adafruit_MCP23017 mcp = Adafruit_MCP23017(0x20);  
+// 0x20 is the default anyway, but showing how it works
 
-  mcp.pinMode(0, INPUT);
-  mcp.pullUp(0, HIGH);  // turn on a 100K pullup internally
+void setup() {
+  mcp.begin();
+
+  mcp.setPinMode('a', 0, INPUT);
+  mcp.setPullUp('a', 0, HIGH);  // turn on a 100K pullup internally
 
   pinMode(13, OUTPUT);  // use the p13 LED as debugging
 }
@@ -32,5 +28,5 @@ void setup() {
 
 void loop() {
   // The LED will 'echo' the button
-  digitalWrite(13, mcp.digitalRead(0));
+  digitalWrite(13, mcp.readPin('a', 0));
 }

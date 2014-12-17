@@ -56,14 +56,14 @@ class Adafruit_MCP23017 {
  public:
   Adafruit_MCP23017(uint8_t addr = 0x20, bool debug = false);
   void begin(void);
-  void setGPIOPinMode(char bank, uint8_t pin, uint8_t mode);
-  void setGPIOPullUp(char bank, uint8_t pin, uint8_t mode);
-  uint8_t readGPIOPin(char bank, uint8_t pin);
-  uint8_t readGPIOBank(char bank);
-  uint16_t readAllGPIO(void);
-  void writeGPIOPin(char bank, uint8_t pin, uint8_t value);
-  void writeGPIOBank(char bank, uint8_t value);
-  void writeAllGPIO(uint16_t value);
+  void setPinMode(char bank, uint8_t pin, uint8_t mode);
+  void setPullUp(char bank, uint8_t pin, uint8_t mode);
+  uint8_t readPin(char bank, uint8_t pin);
+  uint8_t readBank(char bank);
+  uint16_t readAll(void);
+  void writePin(char bank, uint8_t pin, uint8_t value);
+  void writeBank(char bank, uint8_t value);
+  void writeAll(uint16_t value);
   void configure(uint8_t mirroring, uint8_t open, uint8_t polarity);
 
  private:
