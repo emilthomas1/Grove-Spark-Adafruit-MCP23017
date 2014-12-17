@@ -1,7 +1,7 @@
 {
-	"name": "Adafruit_MCP23017",
+	"name": "Adafruit_MCP23017_Spark",
 	"author": "Limor Fried (Ladyada) / Paul Kourany / Louis DeScioli",
 	"version": "2.0.0",
 	"license": "BSD License",
-	"description": "Adafruit_MCP23017 I2C expander library adapted for Spark"
+	"description": "Adafruit MCP23017 I2C expander library exclusively for Spark"
 }
